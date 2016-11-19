@@ -1,0 +1,126 @@
+Charlie-Quinns-MacBook-Pro:SQL Charlie$ sqlite3 sakila211.db
+SQLite version 3.8.8.3 2015-02-25 13:29:11
+Enter ".help" for usage hints.
+sqlite> select first_name, last_name from customer limit 5;
+Mary|Smith
+Patricia|Johnson
+Linda|Williams
+Barbara|Jones
+Elizabeth|Brown
+sqlite> SELECT email FROM customer WHERE first_name = 'Willard';
+willard.lumpkin@sakilacustomer.org
+sqlite> SELECT COUNT(*) FROM customer;
+599
+sqlite> SELECT COUNT(*) FROM customer WHERE store_id = 1;
+326
+sqlite> SELECT rental_rate FROM film WHERE title = 'Virtual Spoilers';
+4.99
+sqlite> SELECT COUNT(*) FROM film WHERE title LIKE '%Princess%';
+2
+sqlite> SELECT title FROM film WHERE length > 180 limit 5;
+Analyze Hoosiers
+Baked Cleopatra
+Catch Amistad
+Chicago North
+Conspiracy Spirit
+sqlite> SELECT title FROM film WHERE rating = 'G' AND length < 60 limit 5;
+Ace Goldfinger
+Blues Instinct
+Bride Intrigue
+Destiny Saturday
+Divorce Shining
+sqlite> SELECT MAX(replacement_cost) FROM film;
+29.99
+sqlite> SELECT rating, COUNT(rating) FROM film GROUP BY rating;
+G|178
+NC-17|210
+PG|194
+PG-13|223
+R|195
+sqlite> SELECT COUNT(actor_id) FROM film JOIN film_actor USING (film_id) WHERE title = "Scalawag Duck";
+5
+sqlite>  SELECT film_id FROM actor JOIN film_actor USING (actor_id) WHERE first_name = "Jude" AND last_name = "Cruise" limit 5;;
+16
+34
+101
+114
+122
+sqlite> SELECT name FROM film JOIN language USING (language_id) WHERE title = "Ace Goldfinger";
+Japanese
+sqlite> SELECT first_name, last_name, COUNT(inventory_id) FROM customer JOIN rental USING(customer_id) GROUP BY customer_id limit 5;
+Mary|Smith|32
+Patricia|Johnson|27
+Linda|Williams|26
+Barbara|Jones|22
+Elizabeth|Brown|38
+sqlite> SELECT COUNT(inventory_id) FROM customer JOIN rental USING (customer_id) WHERE last_name = "Smith";
+32
+sqlite> SELECT first_name, last_name FROM customer JOIN rental USING (customer_id) WHERE return_date is null limit 5;
+Gail|Knight
+Gregory|Mauldin
+Louise|Jenkins
+Willie|Howell
+Emily|Diaz
+sqlite> SELECT first_name, last_name FROM actor JOIN film_actor USING (actor_id) JOIN film USING (film_id) WHERE title = "Splash Gump";
+Penelope|Guiness
+Jennifer|Davis
+Uma|Wood
+Cameron|Streep
+Christian|Neeson
+Ray|Johansson
+Gene|Willis
+Morgan|Williams
+Humphrey|Willis
+Al|Garland
+sqlite> SELECT title FROM film JOIN film_actor USING (film_id) JOIN actor USING(actor_id) WHERE first_name = "Penelope" AND last_name = "Guiness";
+Academy Dinosaur
+Anaconda Confessions
+Angels Life
+Bulworth Commandments
+Cheaper Clyde
+Color Philadelphia
+Elephant Trojan
+Gleaming Jawbreaker
+Human Graffiti
+King Evolution
+Lady Stage
+Language Cowboy
+Mulholland Beast
+Oklahoma Jumanji
+Rules Human
+Splash Gump
+Vertigo Northwest
+Westward Seabiscuit
+Wizard Coldblooded
+sqlite> SELECT title FROM film JOIN inventory USING(film_id) JOIN rental USING (inventory_id) JOIN customer USING(customer_id) WHERE last_name = "Knight";
+Jericho Mulan
+Frost Head
+Clerks Angels
+Wife Turn
+Expecations Natural
+Lawless Vision
+Soup Wisdom
+Heartbreakers Bright
+Bikini Borrowers
+Attacks Hate
+Cupboard Sinners
+Princess Giant
+Cyclone Family
+Platoon Instinct
+Knock Warlock
+Excitement Eve
+Right Cranes
+Hyde Doctor
+Fatal Haunted
+Chasing Fight
+Falcon Volume
+Tomorrow Hustler
+Half Outfield
+Horror Reign
+Borrowers Bedazzled
+
+
+
+
+
+
